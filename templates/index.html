@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>GridWorld Value Iteration</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="header-container">
+  <h1>GridWorld Value Iteration Visualization</h1>
+  <button onclick="run()">Run Value Iteration</button>
+</div>
+
+<div id="grid"></div>
+
+<script>
+  async function run(){
+    let res = await fetch("/run")
+    let data = await res.json()
+
+    let history = data.history
+    let policy = data.policy
+    let path = data.path
+
+    for(let i=0;i<history.length;i++){
+      drawGrid(history[i],policy,[],i)
+      await new Promise(r=>setTimeout(r,500))
+    }
+
+    drawGrid(history[history.length-1],policy,path,history.length)
+  }
+
+    function drawGrid(V, policy, path, iteration) {
+    let html = "";
+
+    html += `<h3>Iteration: ${iteration}</h3>`;
+
+    for (let i = 0; i < 5; i++) {
+        html += "<div class='row'>";
+
+        for (let j = 0; j < 5; j++) {
+        let value = V[i][j];
+        let arrow = policy[i][j];
+
+        let cls = "cell";
+        let label = arrow; // 預設文字為策略箭頭
+
+        // 起點顯示 Start
+        if (i === 0 && j === 0) {
+            cls += " start";
+            label = "Start";
+        }
+
+        // 終點顯示 Goal
+        if (i === 4 && j === 4) {
+            cls += " goal";
+            label = "Goal";
+        }
+
+        // 障礙物
+        if ((i === 1 && j === 1) || (i === 2 && j === 2) || (i === 3 && j === 3)) {
+            cls += " block";
+            label = "Block";
+        }
+
+        // 最佳路徑格子高亮
+        for (let p of path) {
+            if (p[0] === i && p[1] === j) cls += " path";
+        }
+
+        html += `
+            <div class="${cls}">
+            <div class="value">${value}</div>
+            <div class="arrow">${label}</div>
+            </div>
+        `;
+        }
+
+        html += "</div>";
+    }
+
+    document.getElementById("grid").innerHTML = html;
+    }
+</script>
+</body>
+</html>
