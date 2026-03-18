@@ -3,6 +3,9 @@
 本專案實作經典 Reinforcement Learning 問題 **GridWorld**，並使用 **Value Iteration** 演算法求解最佳策略，同時透過 **Flask + HTML/CSS/JavaScript** 建立互動式視覺化介面，動態展示價值函數收斂過程與最佳路徑。
 
 Demo: https://drl-dic2.onrender.com/
+
+<img width="1919" height="1039" alt="image" src="https://github.com/user-attachments/assets/5a264cd1-0dfa-4519-b8b1-b582e6f1ce19" />
+
 ---
 
 ## 📌 專案特色
