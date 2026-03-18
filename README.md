@@ -1,6 +1,7 @@
 # 🧠 GridWorld Value Iteration Visualization
 
 本專案實作經典 Reinforcement Learning 問題 **GridWorld**，並使用 **Value Iteration** 演算法求解最佳策略，同時透過 **Flask + HTML/CSS/JavaScript** 建立互動式視覺化介面，動態展示價值函數收斂過程與最佳路徑。
+
 Demo: https://drl-dic2.onrender.com/
 ---
 
